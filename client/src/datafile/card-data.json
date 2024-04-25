@@ -1,0 +1,64 @@
+[
+    {
+        "id": 1,
+        "artist": "TWICE",
+        "des": "Ready To Be",
+        "title": "TWICE 5TH WORLD TOUR READY TO BE ",
+        "date": "SATURDAY, 02 SEPTEMBER 2023",
+        "venue": "Singapore Indoor Stadium",
+        "genre": "KPOP",
+        "img": "../card_image/twice.png" 
+    },
+    {
+        "id": 2,
+        "artist": "Ed Sheeran",
+        "des": "The +–=÷× Tour",
+        "title": "ED SHEERAN +–=÷× TOUR ",
+        "date": "SATURDAY, 24 FEBRUARY 2024",
+        "venue": "Bukit Jalil National Stadium",
+        "genre": "Pop Music",
+        "img": "../card_image/ed_con.jpg"
+        
+    },
+    {
+        "id": 3,
+        "artist": "Taylor Swift",
+        "des": "The Eras Tour",
+        "title": "TAYLOR SWIFT THE ERAS TOUR",
+        "date": "SATURDAY, 2 MARCH 2024",
+        "venue": "Singapore National Stadium",
+        "genre": "Pop Music",
+        "img": "../card_image/tay_con.jpg"
+        
+    },
+    {
+        "id": 4,
+        "artist": "Bazzi",
+        "des": "The Infinite Dream Tour",
+        "title": "BAZZI THE INFINITE DREAM TOUR",
+        "date": "SUNDAY, 23 OCTOBER 2022",
+        "venue": "Revolution Live, Florida, United States",
+        "genre": "Pop Music",
+        "img": "../card_image/baz_con.jpg"
+    },
+    {
+        "id": 5,
+        "artist": "Lauv",
+        "des": "I Met You When I Was 18",
+        "title": "I MET YOU WHEN I WAS 18 TOUR",
+        "date": "TUESDAY, 23 JANUARY 2018",
+        "venue": "Los Angeles, United States",
+        "genre": "Pop Music",
+        "img": "../card_image/lauv_con.jpg"
+    },
+    {
+        "id": 6,
+        "artist": "Coldplay",
+        "des": "MUSIC of the SPHERES",
+        "title": "MUSIC of the SPHERES TOUR",
+        "date": "THURSDAY, 23 NOVEMBER 2023",
+        "venue": "Bukit Jalil National Stadium",
+        "genre": "Pop Music",
+        "img": "../card_image/coldplay.png"
+    }
+]

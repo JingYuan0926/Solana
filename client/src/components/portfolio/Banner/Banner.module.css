@@ -1,0 +1,7 @@
+
+
+@media screen and (max-width: 768px){
+    .banner_img{
+        display: none;
+    }
+}

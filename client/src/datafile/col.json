@@ -1,0 +1,28 @@
+[
+    {
+      "id": 1,
+      "artist": "Taylor Swift",
+      "img": "../collectibles/1.jpg"
+    },
+    {
+        "id": 2,
+        "artist": "Taylor Swift",
+        "img": "../collectibles/2.jpg"
+      },
+      {
+        "id": 3,
+        "artist": "Taylor Swift",
+        "img": "../collectibles/3.jpg"
+      },
+      {
+        "id": 4,
+        "artist": "Taylor Swift",
+        "img": "../collectibles/4.jpg"
+      },
+      {
+        "id": 5,
+        "artist": "Taylor Swift",
+        "img": "../collectibles/5.jpg"
+      }
+
+]

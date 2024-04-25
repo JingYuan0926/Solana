@@ -1,0 +1,37 @@
+.filter {
+    padding: 4rem 0;
+    width: 100%;
+    margin-top: 50px;
+}
+.filter_box {
+    width:80%;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 3rem;
+}
+
+.filter_box_left {
+    display: flex;
+    gap: 2rem;
+    margin-top: 50px;
+}
+
+.filter_box_left button {
+    border: none;
+    outline: none;
+    padding: 1rem 1.5rem;
+    border-radius: 2rem;
+    background-color: transparent;
+    transition: all .3s ease-in;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.filter_box_left button:hover {
+    border: 1px solid black;
+    color: black;
+    box-shadow: 10px 20px 25px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,72 @@
+
+
+
+.NFT_bigbox{
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 80px;
+    display: grid ;
+    grid-template-columns: repeat(4,1fr);
+    gap: 2rem;
+    background-color:inherit; /* Set background color to match parent */
+}
+
+.NFT_box{
+    display: grid;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+    border-radius: 1rem;
+    background-color: white;
+}
+
+.NFT_box:hover{
+    box-shadow: 20px 25px 30px rgba(0, 0, 0, 0.1);
+}
+
+
+.NFT_box_img{
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+}
+
+.NFT_box_img_img{
+    width: 280px;
+    height: 300px;
+    border-radius: 1rem;
+}
+
+.NFT_box_info{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.NFT_box_info h2{
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1;
+}
+.NFT_box_left{
+    line-height: 0;
+}
+
+.NFT_box_info_right{
+    display: flex;
+    align-items: center;
+}
+
+.NFT_box_info_right p{
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+
+@media screen and (max-width: 35em){
+    .NFT_bigbox{
+        width: 90%;
+        grid-template-columns: 1fr;
+        background-color: inherit;
+    }
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "TWICE",
+    "des": "Ready To Be",
+    "img": "../carousel_image/twice.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Lauv",
+    "des": "I Met You When I Was 18",
+    "img": "../carousel_image/lauv.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Coldplay",
+    "des": "MUSIC of the SPHERES",
+    "img": "../carousel_image/coldplay.png"
+  },
+  {
+    "id": 4,
+    "title": "Bazzi",
+    "des": "The Infinite Dream",
+    "img": "../carousel_image/bazzi.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Ed Sheeran",
+    "des": "The +–=÷× Dream",
+    "img": "../carousel_image/ed.jpg"
+  }
+]
