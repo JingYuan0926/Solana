@@ -29,7 +29,8 @@ const EventCard = ({ isLoading, events }) => {
                             </div>
                             <div className="p-6">
                                 <h3 className="text-xl font-semibold mb-2">{event.name}</h3>
-                                <p className="text-gray-600 mb-4">{event.ticketPrice}ETH</p>
+                                <p className="text-gray-600 mb-4">Price: {event.ticketPrice}ETH </p>
+                                <p className="text-gray-600 mb-4">Concert Date:{event.date}</p>
                                 <button
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                                     onClick={() => handleLearnMore(event)}

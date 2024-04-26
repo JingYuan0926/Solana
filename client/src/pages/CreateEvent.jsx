@@ -34,6 +34,7 @@ const CreateEvent = () => {
 
     console.log(form);
     console.log(contract)
+    setIsLoading(true);
 
     const params = [
       form.name,
@@ -43,7 +44,6 @@ const CreateEvent = () => {
       parseInt(form.totalSeats),  // Convert totalSeats to a number if it's not already
       form.image,
     ];
-    setIsLoading(true);
     const transaction = prepareContractCall({
       contract,
       method: resolveMethod("createConcert"),

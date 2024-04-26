@@ -19,11 +19,13 @@ const Home = () => {
         });
         const formattedData = data.map(event => ({
           ...event,
-          date: event.date.toString(),
+          //date: new Date(parseInt(event.date, 10)).toLocaleString(), for date and time
+          date: new Date(parseInt(event.date, 10)).toLocaleDateString(),
           ticketPrice: ethers.formatEther(event.ticketPrice.toString()),
           ticketsSold: event.ticketsSold.toString(),
           totalSeats: event.totalSeats.toString()
         }));
+
         setEvents(formattedData);
         console.log(formattedData);
       } catch (error) {
