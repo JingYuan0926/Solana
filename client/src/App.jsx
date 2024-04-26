@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { Navbar, Footer } from './components';
 
-import { Home, Payment, Portfolio, Marketplace } from './pages';
+import { Home, Payment, Portfolio, Marketplace,CreateEvent } from './pages';
 import React from 'react';
 
 const App = () => {
@@ -15,6 +15,7 @@ const App = () => {
                 <Route path="/payment/:id" element={<Payment />} />
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/marketplace" element={<Marketplace />} />
+                <Route path="/events" element={<CreateEvent />} />
               </Routes>
             </main>
             <Footer />
