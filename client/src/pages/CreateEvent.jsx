@@ -7,12 +7,14 @@ const CreateEvent = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    title: "",
-    date: "",
-    time: "",
-    location: "",
-    image: "",
+    name: "",
     details: "",
+    ticketPrice: "",
+    date: "",
+    // time: "",
+    totalSeats: "",
+    image: "",
+    // location: "",
   });
 
   const handleFormFieldChange = (fieldName, e) => {
@@ -32,7 +34,7 @@ const CreateEvent = () => {
 
       <div className="w-full">
         <h1 className="font-epilogue font-bold sm:text-[28px] text-[18px] leading-[38px] text-[#2563eb]">
-          Create an Event
+          Create an Concert
         </h1>
         <div className="border-t-2 border-[#9ca3af] mt-6"></div>
       </div>
@@ -51,13 +53,13 @@ const CreateEvent = () => {
         <FormField
           labelName={
             <span>
-              Event Title: <span className="text-[#dc2626] font-bold">*</span>
+              Concert Name: <span className="text-[#dc2626] font-bold">*</span>
             </span>
           }
-          placeholder="Write an event title"
+          placeholder="Write an Concert Name"
           inputType="text"
-          value={form.title}
-          handleChange={(e) => handleFormFieldChange("title", e)}
+          value={form.name}
+          handleChange={(e) => handleFormFieldChange("name", e)}
         />
 
         <div className="flex flex-wrap gap-[40px]">
@@ -73,7 +75,7 @@ const CreateEvent = () => {
             handleChange={(e) => handleFormFieldChange("date", e)}
           />
 
-          <FormField
+          {/* <FormField
             labelName={
               <span>
                 Start Time: <span className="text-[#dc2626] font-bold">*</span>
@@ -83,19 +85,31 @@ const CreateEvent = () => {
             inputType="time"
             value={form.time}
             handleChange={(e) => handleFormFieldChange("time", e)}
+          /> */}
+
+          <FormField
+            labelName={
+              <span>
+                Total Seats: <span className="text-[#dc2626] font-bold">*</span>
+              </span>
+            }
+            placeholder="Write the total seats"
+            inputType="text"
+            value={form.totalSeats}
+            handleChange={(e) => handleFormFieldChange("totalSeats", e)}
           />
         </div>
 
         <FormField
           labelName={
             <span>
-              Location: <span className="text-[#dc2626] font-bold">*</span>
+              Ticket Price: <span className="text-[#dc2626] font-bold">*</span>
             </span>
           }
-          placeholder="Write the event location"
+          placeholder="Write the ticket price"
           inputType="text"
-          value={form.location}
-          handleChange={(e) => handleFormFieldChange("location", e)}
+          value={form.ticketPrice}
+          handleChange={(e) => handleFormFieldChange("ticketPrice", e)}
         />
 
         <FormField
