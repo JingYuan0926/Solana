@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FormField, Loader } from "../components";
+import { contract } from "../utils/constants";
+import { prepareContractCall, sendTransaction, resolveMethod } from "thirdweb";
+import { useSendTransaction } from "thirdweb/react";
+import { ethers } from "ethers";
 
 const CreateEvent = () => {
+
+  const { mutate: sendTransaction, isPending } = useSendTransaction();
+
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
@@ -26,6 +33,26 @@ const CreateEvent = () => {
     e.preventDefault();
 
     console.log(form);
+    console.log(contract)
+
+    const params = [
+      form.name,
+      form.details,
+      ethers.parseEther(form.ticketPrice),  // Convert ticket price to Wei
+      new Date(form.date).getTime(),  // Assuming you need the timestamp in milliseconds
+      parseInt(form.totalSeats),  // Convert totalSeats to a number if it's not already
+      form.image,
+    ];
+    setIsLoading(true);
+    const transaction = prepareContractCall({
+      contract,
+      method: resolveMethod("createConcert"),
+      params: params,
+    });
+    
+    sendTransaction(transaction);
+    console.log(transaction)
+    setIsLoading(false);
   };
 
   return (
@@ -119,7 +146,6 @@ const CreateEvent = () => {
             </span>
           }
           placeholder="Place the image URL of the event"
-          inputType="url"
           value={form.image}
           handleChange={(e) => handleFormFieldChange("image", e)}
         />
