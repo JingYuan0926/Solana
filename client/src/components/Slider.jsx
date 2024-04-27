@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Box, Button } from '@mui/material';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -25,7 +24,7 @@ const Slider = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', height: '60vh', position: 'relative', overflow: 'hidden', mt:0}}>
+    <Box sx={{ width: '100%', height: '60vh', position: 'relative', overflow: 'hidden', mt:7}}>
       <Box
         sx={{
           display: 'flex',

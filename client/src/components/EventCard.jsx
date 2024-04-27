@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Data from "../datafile/card-data.json";
 
 const EventCard = ({ isLoading, events }) => {
     const navigate = useNavigate();
@@ -22,15 +21,15 @@ const EventCard = ({ isLoading, events }) => {
             <div className="flex flex-wrap justify-start -mx-2">
                 {events.map((event, index) => (
                     <div key={index} className="px-4 mb-8 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
-                        <div className="flex flex-col bg-white rounded-xl overflow-hidden shadow-lg">
+                        <div className="flex flex-col bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform transition-all duration-300 ease-in-out hover:shadow-2xl">
                             <div className="w-full h-72 overflow-hidden">
                                 {/* Use the imageURI from the event data */}
-                                <img src={event.imageURI} alt={event.name} className="w-full h-full object-cover" />
+                                <img src={event.imageURI} alt={event.name} className="w-full h-full object-cover rounded-[15px]" />
                             </div>
                             <div className="p-6">
                                 <h3 className="text-xl font-semibold mb-2">{event.name}</h3>
                                 <p className="text-gray-600 mb-4">Price: {event.ticketPrice}ETH </p>
-                                <p className="text-gray-600 mb-4">Concert Date:{event.date}</p>
+                                <p className="text-gray-600 mb-4">Concert Date: {event.date}</p>
                                 <button
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                                     onClick={() => handleLearnMore(event)}

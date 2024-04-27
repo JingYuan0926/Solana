@@ -4,6 +4,7 @@ import { EventCard, Slider } from '../components';
 import { readContract, resolveMethod } from "thirdweb";
 import { contract } from "../utils/constants";
 import { ethers } from 'ethers';
+
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true); // Assuming there's an API call
   const [events, setEvents] = useState([]);

@@ -56,7 +56,7 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
+    <div className="flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4" style={{ marginTop: 90 }}>
       {isLoading && <Loader />}
 
       <div className="w-full">
