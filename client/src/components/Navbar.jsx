@@ -63,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 // Define the pages and menu options
 const pages = ['Home', 'Events', 'Marketplace', 'Contact Us'];
-const settings = ['Profile', 'Account', 'Portfolio', 'Logout'];
+const settings = ['Profile', 'Settings', 'Portfolio', 'Logout'];
 
 function Navbar() {
   // State variables
@@ -98,8 +98,7 @@ function Navbar() {
   const routes = {
     Portfolio: '/portfolio',
     Profile: '/profile',
-    Account: '/account',
-    Logout: '/logout',
+    Settings: '/settings',
   };
 
   // Function to handle navigation to the specified route
@@ -126,7 +125,7 @@ function Navbar() {
   ];
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: color ? 'rgba(0, 0, 0, 0.9)' : 'transparent', transition: 'background-color 0.1s ease-in' }}>
+    <AppBar position="fixed" sx={{ backgroundColor: color ? 'rgba(0, 71, 171, 1)' : 'rgba(29, 41, 81, 1)' , transition: 'background-color 0.1s ease-in'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* Logo and Text */}
@@ -153,12 +152,15 @@ function Navbar() {
             ))}
           </Box>
 
-          <ConnectButton
-            client={client}
-            wallets={wallets}
-            theme={"dark"}
-            connectModal={{ size: "wide" }}
-          />
+          <Box sx={{ mr: 7 }}> {/* Adjust the value as needed */}
+            <ConnectButton
+              client={client}
+              wallets={wallets}
+              theme="dark"
+              connectModal={{ size: "wide" }}
+            />
+          </Box>
+
           {/* Search element */}
           {/* <Search style={{ marginRight: '40px', width: `${Math.min(searchValue.length * 10 + 180, 350)}px`, height: '33px' }}>
             <SearchIconWrapper>
@@ -170,7 +172,7 @@ function Navbar() {
             {/* User element */}
             <div>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu}>
+                <IconButton onClick={handleOpenUserMenu} sx={{ mr: 2 }}>
                   <Avatar alt="User" src="" />
                 </IconButton>
               </Tooltip>

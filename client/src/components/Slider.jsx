@@ -25,7 +25,7 @@ const Slider = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', height: '60vh', position: 'relative', overflow: 'hidden', mt:0}}>
+    <Box sx={{ width: '100%', height: '60vh', position: 'relative', overflow: 'hidden', mt:7}}>
       <Box
         sx={{
           display: 'flex',

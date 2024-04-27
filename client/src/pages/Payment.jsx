@@ -19,7 +19,7 @@ const Payment = () => {
 
       <div className="pt-[45vh] container mx-auto px-4 flex-grow">
         <Box style={{ position: 'relative', marginTop: -200, marginBottom: '50px', display: 'flex' }}>
-          <img src={eventData.img} alt={eventData.title} style={{ height: '290px', marginRight: '20px', borderRadius: '10px' }} />
+          <img src={eventData.img} alt={eventData.title} style={{ height: '290px', marginRight: '20px', borderRadius: '10px',marginLeft: '20px' }} />
           <Typography variant="h6" style={{ flexGrow: 1, fontFamily: 'Georgia, serif', color: 'white', marginLeft: '20px', }}>
             <br />
             <span style={{ fontWeight: 'bold', fontSize: '30px' }}>{eventData.title}</span><br />

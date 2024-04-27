@@ -24,7 +24,7 @@ const Pay2 = ({ eventData }) => {
 
     return (
         <div>
-            <Box sx={{ display: 'flex', flexGrow: 1, height: '100%', ml: -5 }}> {/* This box acts as the flex container */} {/* flexGrow: 1 allows this container to grow */}
+            <Box sx={{ display: 'flex', flexGrow: 1, height: '100%' }}> {/* This box acts as the flex container */} {/* flexGrow: 1 allows this container to grow */}
                 {/* Vertical Tabs */}
                 <Tabs orientation="vertical" variant="scrollable" value={value} onChange={handleChange} aria-label="vertical-tab" sx={{ borderRight: 1, borderColor: 'divider' }}>
                     <Tab label="Info" />

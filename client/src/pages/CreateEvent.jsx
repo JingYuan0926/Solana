@@ -27,10 +27,10 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
+    <div className="flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4" style={{ marginTop: 90 }}>
       {isLoading && <Loader />}
 
-      <div className="w-full">
+      <div className="w-full" >
         <h1 className="font-epilogue font-bold sm:text-[28px] text-[18px] leading-[38px] text-[#2563eb]">
           Create an Event
         </h1>
