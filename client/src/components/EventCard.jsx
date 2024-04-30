@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 const EventCard = ({ isLoading, events }) => {
     const navigate = useNavigate();
 
-    const handleLearnMore = (eventData) => {
-        navigate(`/payment/${encodeURIComponent(eventData.name)}`, { state: eventData });
+    const handleLearnMore = (eventData, index) => {
+        // Navigating without including the index in the URL
+        navigate(`/payment/${encodeURIComponent(eventData.name)}`, { state: { ...eventData, index } });
     };
+
 
     return (
         <div className="container mx-auto mt-8 px-4">
@@ -32,7 +34,7 @@ const EventCard = ({ isLoading, events }) => {
                                 <p className="text-gray-600 mb-4">Concert Date: {event.date}</p>
                                 <button
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                                    onClick={() => handleLearnMore(event)}
+                                    onClick={() => handleLearnMore(event, index)}
                                 >
                                     Learn More
                                 </button>

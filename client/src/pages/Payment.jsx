@@ -8,7 +8,10 @@ const Payment = () => {
   const location = useLocation();
   const { state: eventData } = location;
 
-  console.log(eventData);
+  const { index } = eventData;
+
+  console.log(index);
+
 
   return (
     <div className="relative flex-grow bg-gray-100 flex flex-col justify-between">
