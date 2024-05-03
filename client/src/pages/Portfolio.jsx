@@ -30,6 +30,8 @@ const Portfolio = () => {
             params: [address],
           });
 
+          console.log(data);
+
           const formattedData = data.map((event) => ({
             ...event,
             date: new Date(parseInt(event.date, 10)).toLocaleDateString(),
@@ -49,6 +51,7 @@ const Portfolio = () => {
 
     if (address) {
       fetchConcerts();
+      
     }
   }, [address]); 
 

@@ -144,7 +144,13 @@ export const client = createThirdwebClient({
       },
       {
         "type": "uint256",
-        "name": "ticketId",
+        "name": "firstTicketId",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "quantity",
         "indexed": false,
         "internalType": "uint256"
       }
@@ -217,11 +223,16 @@ export const client = createThirdwebClient({
   },
   {
     "type": "function",
-    "name": "buyTicket",
+    "name": "buyTickets",
     "inputs": [
       {
         "type": "uint256",
         "name": "_id",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "quantity",
         "internalType": "uint256"
       }
     ],
@@ -239,6 +250,11 @@ export const client = createThirdwebClient({
       }
     ],
     "outputs": [
+      {
+        "type": "uint256",
+        "name": "concertId",
+        "internalType": "uint256"
+      },
       {
         "type": "string",
         "name": "name",
@@ -355,6 +371,11 @@ export const client = createThirdwebClient({
         "name": "",
         "components": [
           {
+            "type": "uint256",
+            "name": "concertId",
+            "internalType": "uint256"
+          },
+          {
             "type": "string",
             "name": "name",
             "internalType": "string"
@@ -415,6 +436,11 @@ export const client = createThirdwebClient({
         "type": "tuple[]",
         "name": "",
         "components": [
+          {
+            "type": "uint256",
+            "name": "concertId",
+            "internalType": "uint256"
+          },
           {
             "type": "string",
             "name": "name",
@@ -675,10 +701,12 @@ export const client = createThirdwebClient({
   }
 ]
 // connect to your contract
+
+//0x18e1b73Be43F2286c6ABA4CC75C73dDcFbDFe7A9 for old contract
 export const contract = getContract({ 
   client, 
   chain: defineChain(11155111), 
-  address: "0x18e1b73Be43F2286c6ABA4CC75C73dDcFbDFe7A9",
+  address: "0xe76fecE7E3742499B9C501B5E6BA65f31e356802",
   abi: contractABI
 });
 

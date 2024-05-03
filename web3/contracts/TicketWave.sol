@@ -8,6 +8,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract TicketWave is ERC721URIStorage {
     struct Concert {
+        uint256 concertId;
         string name;
         string description;
         uint256 ticketPrice;
@@ -37,7 +38,8 @@ contract TicketWave is ERC721URIStorage {
     event TicketPurchased(
         uint256 indexed concertId,
         address indexed ticketHolder,
-        uint256 ticketId
+        uint256 firstTicketId,
+        uint256 quantity
     );
 
     constructor() ERC721("TicketWave", "TW") {}
@@ -53,6 +55,7 @@ contract TicketWave is ERC721URIStorage {
         require(_date > block.timestamp, "Concert date must be in the future.");
 
         Concert storage concert = concerts[numberOfConcerts];
+        concert.concertId = numberOfConcerts;
         concert.name = _name;
         concert.description = _description;
         concert.ticketPrice = _ticketPrice;
@@ -68,34 +71,40 @@ contract TicketWave is ERC721URIStorage {
         return numberOfConcerts - 1;
     }
 
-    function buyTicket(uint256 _id) public payable {
+    function buyTickets(uint256 _id, uint256 quantity) public payable {
         Concert storage concert = concerts[_id];
         require(
             block.timestamp < concert.date,
             "Cannot buy tickets after the concert date."
         );
         require(
-            msg.value >= concert.ticketPrice,
-            "Payment must be equal to or greater than the ticket price."
+            msg.value >= concert.ticketPrice * quantity,
+            "Payment must be equal to or greater than the total ticket price."
         );
         require(
-            concert.ticketsSold < concert.totalSeats,
-            "All tickets have been sold."
+            concert.ticketsSold + quantity <= concert.totalSeats,
+            "Not enough tickets remaining."
         );
 
-        uint256 ticketId = ticketIdCounter++;
-        _safeMint(msg.sender, ticketId);
-        _setTokenURI(ticketId, concert.imageURI);
+        concert.ticketsSold += quantity;
 
-        ticketToConcert[ticketId] = _id;
-        userTickets[msg.sender].push(ticketId);
-
-        concert.ticketsSold++;
+        for (uint256 i = 0; i < quantity; i++) {
+            uint256 ticketId = ticketIdCounter++;
+            _safeMint(msg.sender, ticketId);
+            _setTokenURI(ticketId, concert.imageURI);
+            ticketToConcert[ticketId] = _id;
+            userTickets[msg.sender].push(ticketId);
+        }
 
         (bool sent, ) = payable(concert.organizer).call{value: msg.value}("");
         require(sent, "Failed to send money to organizer.");
 
-        emit TicketPurchased(_id, msg.sender, ticketId);
+        emit TicketPurchased(
+            _id,
+            msg.sender,
+            ticketIdCounter - quantity,
+            quantity
+        );
     }
 
     function getConcerts() public view returns (Concert[] memory) {
@@ -106,11 +115,9 @@ contract TicketWave is ERC721URIStorage {
         return allConcerts;
     }
 
-    function getConcertsByUser(address user)
-        public
-        view
-        returns (Concert[] memory)
-    {
+    function getConcertsByUser(
+        address user
+    ) public view returns (Concert[] memory) {
         uint256[] memory tickets = userTickets[user];
         Concert[] memory concertsByUser = new Concert[](tickets.length);
 

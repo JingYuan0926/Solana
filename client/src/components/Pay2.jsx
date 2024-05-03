@@ -27,6 +27,7 @@ const Pay2 = ({ eventData, index }) => {
   const [ticketQuantity, setTicketQuantity] = useState(0);
   const [ticketPrice, setTicketPrice] = useState(0);
   const [totalSeats, setTotalSeats] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   // Update ticket price when eventData changes
   useEffect(() => {
@@ -41,21 +42,24 @@ const Pay2 = ({ eventData, index }) => {
   }, [eventData, ticketQuantity]);
 
   const handleBuyTicket = () => {
+    setIsLoading(true);
     try {
       const bigIndex = BigInt(index);
-      console.log(bigIndex);
+      const ticketQuantityBig = BigInt(ticketQuantity);
       const transaction = prepareContractCall({
         contract,
-        method: resolveMethod("buyTicket"),
-        params: [bigIndex],
+        method: resolveMethod("buyTickets"),
+        params: [bigIndex,ticketQuantityBig],
         value: ethers.parseEther(totalPrice.toString()),
       });
       sendTransaction(transaction);
+      setIsLoading(false);
     } catch (error) {
       console.error(
         "Error converting index to BigInt or sending transaction:",
         error
       );
+      setIsLoading(false);
     }
   };
 
@@ -64,10 +68,10 @@ const Pay2 = ({ eventData, index }) => {
     // Ensure new quantity does not exceed total seats
     if (newQuantity >= 0 && newQuantity <= totalSeats) {
       setTicketQuantity(newQuantity);
+      //If Price is 0 change the toFixed longer
+      setTotalPrice((newQuantity * ticketPrice).toFixed(5));
     }
   };
-
-  const totalPrice = (ticketQuantity * ticketPrice).toFixed(3);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
