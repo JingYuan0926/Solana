@@ -20,10 +20,12 @@ import { contract } from "../utils/constants";
 import { prepareContractCall, sendTransaction, resolveMethod } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
 import { ethers } from "ethers";
+import { Loader } from "../components";
 
 const Pay2 = ({ eventData, index }) => {
   const { mutate: sendTransaction, isPending } = useSendTransaction();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [ticketQuantity, setTicketQuantity] = useState(0);
   const [ticketPrice, setTicketPrice] = useState(0);
   const [totalSeats, setTotalSeats] = useState(0);
@@ -41,7 +43,7 @@ const Pay2 = ({ eventData, index }) => {
     console.log(index);
   }, [eventData, ticketQuantity]);
 
-  const handleBuyTicket = () => {
+  const handleBuyTicket = async () => {
     setIsLoading(true);
     try {
       const bigIndex = BigInt(index);
@@ -49,10 +51,10 @@ const Pay2 = ({ eventData, index }) => {
       const transaction = prepareContractCall({
         contract,
         method: resolveMethod("buyTickets"),
-        params: [bigIndex,ticketQuantityBig],
+        params: [bigIndex, ticketQuantityBig],
         value: ethers.parseEther(totalPrice.toString()),
       });
-      sendTransaction(transaction);
+      await sendTransaction(transaction);
       setIsLoading(false);
     } catch (error) {
       console.error(
@@ -239,6 +241,7 @@ const Pay2 = ({ eventData, index }) => {
           </TabPanel>
           {/* Tickets */}
           <TabPanel value={value} index={1}>
+            {isLoading && <Loader />}
             <p className="text-center my-2">{eventData.ticketPrice} eth</p>
             <div className="flex items-center justify-center mt-4">
               <Button
