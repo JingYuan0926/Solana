@@ -1,12 +1,19 @@
 // Payment.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import { Pay2 } from "../components"; // Import Pay component
-
+import { useState } from "react";
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import Loader from "../components/Loader";
+import { useActiveAccount } from "thirdweb/react";
 
 const Payment = () => {
-
+  const [clientSecret, setClientSecret] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+  const activeAccount = useActiveAccount();
   const location = useLocation();
   const { state: eventData } = location;
 
@@ -14,7 +21,26 @@ const Payment = () => {
 
   console.log(index);
 
-  
+  useEffect(() => {
+    const fetchClientSecret = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch('/api/createPaymentIntent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ activeAccount })
+        });
+        const data = await response.json();
+        setClientSecret(data.message.client_secret);
+      } catch (error) {
+        console.error("Failed to fetch client secret:", error);
+      }
+      setIsLoading(false);
+    };
+    fetchClientSecret();
+  }, []);
+
+
   return (
     <div className="relative flex-grow bg-gray-100 flex flex-col justify-between">
       {/* style bg image*/}
@@ -69,10 +95,22 @@ const Payment = () => {
             <br />
           </Typography>
         </Box>
-        <Pay2 eventData={eventData} index={index} />
+
+        {clientSecret && !isLoading ? (
+          <Elements stripe={stripePromise} options={{
+            clientSecret: clientSecret,
+            appearance: { theme: "stripe" },
+          }}>
+            <Pay2 eventData={eventData} index={index} />
+          </Elements>
+        ) : (
+          <Loader />
+        )}
       </div>
     </div>
   );
 };
 
 export default Payment;
+
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const EventCard = ({ isLoading, events }) => {
+const EventCard = ({ events }) => {
     const navigate = useNavigate();
 
     const handleLearnMore = (eventData, index) => {
