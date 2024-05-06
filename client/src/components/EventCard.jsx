@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton';
 
-const EventCard = ({ events }) => {
+const EventCard = ({isLoading, events }) => {
     const navigate = useNavigate();
 
     const handleLearnMore = (eventData, index) => {

@@ -24,6 +24,7 @@ const Form = () => {
             // Here, instead of creating a payment method, confirm the payment directly if needed
             const result = await stripe.confirmPayment({
                 elements,
+                redirect:'if_required'
             });
 
             if (result.error) {

@@ -35,7 +35,7 @@ const Pay2 = ({ eventData, index }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [paymentOption, setPaymentOption] = useState('');
   const [paymentType, setPaymentType] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+
 
   // Update ticket price when eventData changes
   useEffect(() => {
