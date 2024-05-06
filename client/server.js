@@ -25,9 +25,10 @@ app.post('/createPaymentIntent', async (req, res) => {
         // Create a PaymentIntent with the specified amount and currency
         const paymentIntent = await stripe.paymentIntents.create({
             amount: 1000,
-            currency: 'usd',
-            description: 'Example payment',
-            payment_method_types: ['card'],
+            currency: 'myr',
+            description: `${address}` ,
+            //wechat,alipay,apple_pay,fpx
+            payment_method_types: ["card","grabpay"],
             metadata: { address: address },
         });
         // console.log(`${paymentIntent.id}_secret_${paymentIntent.client_secret}`);
@@ -42,17 +43,29 @@ app.post('/createPaymentIntent', async (req, res) => {
     }
 });
 
-// server.js
-app.post('/logPaymentInfo', (req, res) => {
-    const { paymentMethodId } = req.body;
-    console.log('Received payment method ID:', paymentMethodId);
 
-    // Additional logging or processing can be done here
-    // For example, you could store these details in a database
+app.post('/verifyPayment', async (req, res) => {
+    const { paymentIntentId, description } = req.body;
 
-    res.json({ message: 'Payment info logged successfully' });
+    try {
+        // Retrieve the payment intent from Stripe
+        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+        console.log(paymentIntent);
+
+        // Verify the payment status and metadata
+        // Need to use metadata instead of description in the future but now for testing only
+        if (paymentIntent.status === 'succeeded' && paymentIntent.metadata.address === description) {
+            // Process successful payment here (e.g., update order status, notify user)
+            res.json({ success: true, message: 'Payment verified successfully' });
+        } else {
+            // Handle errors or discrepancies
+            throw new Error('Payment verification failed');
+        }
+    } catch (error) {
+        console.error('Verification error:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
 });
-
 
 // Start the server
 app.listen(port, () => {

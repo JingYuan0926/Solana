@@ -10,10 +10,10 @@ import Loader from "../components/Loader";
 import { useActiveAccount } from "thirdweb/react";
 
 const Payment = () => {
-  const [clientSecret, setClientSecret] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-  const activeAccount = useActiveAccount();
+  // const [clientSecret, setClientSecret] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
+  //const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+  //const activeAccount = useActiveAccount();
   const location = useLocation();
   const { state: eventData } = location;
 
@@ -21,24 +21,24 @@ const Payment = () => {
 
   console.log(index);
 
-  useEffect(() => {
-    const fetchClientSecret = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch('/api/createPaymentIntent', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ activeAccount })
-        });
-        const data = await response.json();
-        setClientSecret(data.message.client_secret);
-      } catch (error) {
-        console.error("Failed to fetch client secret:", error);
-      }
-      setIsLoading(false);
-    };
-    fetchClientSecret();
-  }, []);
+  // useEffect(() => {
+  //   const fetchClientSecret = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const response = await fetch('/api/createPaymentIntent', {
+  //         method: 'POST',
+  //         headers: { 'Content-Type': 'application/json' },
+  //         body: JSON.stringify({ activeAccount })
+  //       });
+  //       const data = await response.json();
+  //       setClientSecret(data.message.client_secret);
+  //     } catch (error) {
+  //       console.error("Failed to fetch client secret:", error);
+  //     }
+  //     setIsLoading(false);
+  //   };
+  //   fetchClientSecret();
+  // }, []);
 
 
   return (
@@ -96,7 +96,7 @@ const Payment = () => {
           </Typography>
         </Box>
 
-        {clientSecret && !isLoading ? (
+        {/* {clientSecret && !isLoading ? (
           <Elements stripe={stripePromise} options={{
             clientSecret: clientSecret,
             appearance: { theme: "stripe" },
@@ -105,7 +105,9 @@ const Payment = () => {
           </Elements>
         ) : (
           <Loader />
-        )}
+        )} */}
+
+        <Pay2 eventData={eventData} index={index} />
       </div>
     </div>
   );

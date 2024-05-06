@@ -20,14 +20,20 @@ import { contract } from "../utils/constants";
 import { prepareContractCall, sendTransaction, resolveMethod } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
 import { ethers } from "ethers";
+import { useNavigate } from "react-router-dom";
+
 
 const Pay2 = ({ eventData, index }) => {
+  const navigate = useNavigate();
   const { mutate: sendTransaction, isPending } = useSendTransaction();
 
   const [ticketQuantity, setTicketQuantity] = useState(0);
   const [ticketPrice, setTicketPrice] = useState(0);
   const [totalSeats, setTotalSeats] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [paymentOption, setPaymentOption] = useState('');
+  const [paymentType, setPaymentType] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   // Update ticket price when eventData changes
   useEffect(() => {
@@ -41,25 +47,29 @@ const Pay2 = ({ eventData, index }) => {
     console.log(index);
   }, [eventData, ticketQuantity]);
 
-  const handleBuyTicket = () => {
-    setIsLoading(true);
-    try {
-      const bigIndex = BigInt(index);
-      const ticketQuantityBig = BigInt(ticketQuantity);
-      const transaction = prepareContractCall({
-        contract,
-        method: resolveMethod("buyTickets"),
-        params: [bigIndex,ticketQuantityBig],
-        value: ethers.parseEther(totalPrice.toString()),
-      });
-      sendTransaction(transaction);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(
-        "Error converting index to BigInt or sending transaction:",
-        error
-      );
-      setIsLoading(false);
+  const handleBuyTicket =  () => {
+    if (paymentOption === 'Crypto') {
+      setIsLoading(true);
+      try {
+        const bigIndex = BigInt(index);
+        const ticketQuantityBig = BigInt(ticketQuantity);
+        const transaction = prepareContractCall({
+          contract,
+          method: resolveMethod("buyTickets"),
+          params: [bigIndex, ticketQuantityBig],
+          value: ethers.parseEther(totalPrice.toString()),
+        });
+        sendTransaction(transaction);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(
+          "Error converting index to BigInt or sending transaction:",
+          error
+        );
+        setIsLoading(false);
+      }
+    } else if (paymentOption === 'Card') {
+      navigate(`/cardpayment`);
     }
   };
 
@@ -77,6 +87,14 @@ const Pay2 = ({ eventData, index }) => {
     setValue(newValue);
   };
   const [value, setValue] = React.useState(0);
+
+  const handlePayment = () => {
+    if (paymentOption === 'full') {
+      handleCryptoPayment();
+    } else if (paymentOption === 'bnpl') {
+      renderCardPaymentComponent();
+    }
+  };
 
   return (
     <div>
@@ -239,6 +257,7 @@ const Pay2 = ({ eventData, index }) => {
           </TabPanel>
           {/* Tickets */}
           <TabPanel value={value} index={1}>
+            {isLoading && <Loader />}
             <p className="text-center my-2">{eventData.ticketPrice} eth</p>
             <div className="flex items-center justify-center mt-4">
               <Button
@@ -267,7 +286,6 @@ const Pay2 = ({ eventData, index }) => {
             <div
               style={{
                 display: "flex",
-                alignItems: "center",
                 justifyContent: "space-between",
                 marginTop: "1rem",
               }}
@@ -281,6 +299,28 @@ const Pay2 = ({ eventData, index }) => {
                   row
                   aria-label="payment option"
                   name="payment-option"
+                  value={paymentOption}
+                  onChange={(event) => setPaymentOption(event.target.value)}
+                >
+                  <FormControlLabel
+                    value="Crypto"
+                    control={<Radio />}
+                    label="Crypto Payment"
+                  />
+                  <FormControlLabel
+                    value="Card"
+                    control={<Radio />}
+                    label="Card Payment"
+                  />
+                </RadioGroup>
+              </FormControl>
+              <FormControl component="fieldset">
+                <RadioGroup
+                  row
+                  aria-label="payment option"
+                  name="payment-option"
+                  value={paymentType}
+                  onChange={(event) => setPaymentType(event.target.value)}
                 >
                   <FormControlLabel
                     value="full"
@@ -290,7 +330,7 @@ const Pay2 = ({ eventData, index }) => {
                   <FormControlLabel
                     value="bnpl"
                     control={<Radio />}
-                    label="Buy Now, Pay Later"
+                    label="Buy Now Pay Later"
                   />
                 </RadioGroup>
               </FormControl>

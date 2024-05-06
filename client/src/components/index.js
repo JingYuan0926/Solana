@@ -19,3 +19,5 @@ export {default as NFT_market} from './marketplace/NFT_market/NFT_market.jsx';
 //add concert
 export { default as FormField } from "./FormField";
 export { default as Loader } from "./Loader";
+
+export { default as PaymentForm } from './PaymentForm';
