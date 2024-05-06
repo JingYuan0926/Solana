@@ -22,11 +22,13 @@ import { useSendTransaction } from "thirdweb/react";
 import { ethers } from "ethers";
 import { useNavigate } from "react-router-dom";
 
+import { Loader } from "../components";
 
 const Pay2 = ({ eventData, index }) => {
   const navigate = useNavigate();
   const { mutate: sendTransaction, isPending } = useSendTransaction();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [ticketQuantity, setTicketQuantity] = useState(0);
   const [ticketPrice, setTicketPrice] = useState(0);
   const [totalSeats, setTotalSeats] = useState(0);
