@@ -158,6 +158,13 @@ function Navbar() {
               wallets={wallets}
               theme="dark"
               connectModal={{ size: "wide" }}
+              detailsModal={{
+                payOptions: {
+                  buyWithFiat: false,
+                  buyWithCrypto: false,
+                },
+              }}
+              
             />
           </Box>
 

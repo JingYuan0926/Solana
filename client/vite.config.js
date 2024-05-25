@@ -14,4 +14,21 @@ export default defineConfig({
       },
     },
   },
+  // Configure Vite to treat react-native as external
+  resolve: {
+    alias: {
+      // Redirect react-native to an empty module to effectively ignore it
+      'react-native': 'react-native-web',
+    }
+  },
+  // Optimizing dependencies to exclude react-native
+  optimizeDeps: {
+    exclude: ['react-native']
+  },
+  // Preventing rollup from trying to bundle react-native
+  build: {
+    rollupOptions: {
+      external: ['react-native']
+    }
+  }
 });
